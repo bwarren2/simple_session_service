@@ -2,10 +2,19 @@
 
 from aws_cdk import core
 
-from cdkpipe_2.cdkpipe_2_stack import Cdkpipe2Stack
+from pipelines_webinar.pipelines_webinar_stack import PipelineWebinarStack
+from pipelines_webinar.pipeline_stack import PipelineStack
 
 
 app = core.App()
-Cdkpipe2Stack(app, "cdkpipe-2")
+PipelineWebinarStack(app, "pipelines-webinar")
+PipelineStack(
+    app,
+    "pipelines-webinar",
+    env={
+        "account": "871089662319",
+        "region": "us-east-1",
+    },
+)
 
 app.synth()
