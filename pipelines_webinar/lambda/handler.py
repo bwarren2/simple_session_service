@@ -1,6 +1,6 @@
 import logging
 
-logging.getLogger("handler")
+logger = logging.getLogger("handler")
 
 
 def handler(event, context):
