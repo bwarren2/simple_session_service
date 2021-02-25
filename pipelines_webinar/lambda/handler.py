@@ -4,5 +4,5 @@ logging.getLogger("handler")
 
 
 def handler(event, context):
-    logger.info("Invoked ze lambda")
+    logger.info(event, context)
     return {"body": "Hello king from limmy lams", "statusCode": "200"}
