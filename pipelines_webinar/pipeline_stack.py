@@ -44,6 +44,12 @@ class PipelineStack(core.Stack):
         pre_prod_stage = pipeline.add_application_stage(pre_prod_app)
         pre_prod_stage.add_actions(
             pipelines.ShellScriptAction(
+                action_name="UnitTest",
+                run_order=pre_prod_stage.next_sequential_run_order(),
+                additional_artifacts=[source_artifact],
+                commands=["pip install -r requirements.txt", "pytest integtests"],
+            ),
+            pipelines.ShellScriptAction(
                 action_name="Integ",
                 run_order=pre_prod_stage.next_sequential_run_order(),
                 additional_artifacts=[source_artifact],
@@ -51,7 +57,7 @@ class PipelineStack(core.Stack):
                 use_outputs={
                     "SERVICE_URL": pipeline.stack_output(pre_prod_app.url_output)
                 },
-            )
+            ),
         )
         pipeline.add_application_stage(
             WebServiceStage(
