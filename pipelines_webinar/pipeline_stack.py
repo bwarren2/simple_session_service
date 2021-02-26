@@ -29,6 +29,7 @@ class PipelineStack(core.Stack):
                 source_artifact=source_artifact,
                 cloud_assembly_artifact=cloud_assembly_artifact,
                 install_command="npm install -g aws-cdk && pip install -r requirements.txt",
+                build_command="pytest unittests"
                 synth_command="cdk synth",
             ),
         )

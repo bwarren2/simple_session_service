@@ -6,7 +6,4 @@ logger.setLevel(logging.INFO)
 
 def handler(event, context):
     logger.info(event)
-    logger.info(context)
-    logger.info(os.environ)
-    print("Hello")
     return {"body": "Hello from limmy lams", "statusCode": "200"}
