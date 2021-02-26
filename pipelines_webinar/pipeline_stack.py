@@ -46,15 +46,13 @@ class PipelineStack(core.Stack):
             pipelines.ShellScriptAction(
                 action_name="Integ",
                 run_order=pre_prod_stage.next_sequential_run_order(),
-                additional_artifacts=source_artifact,
+                additional_artifacts=[source_artifact],
                 commands=["pip install -r requirements.txt", "pytest integtests"],
                 use_outputs={
                     "SERVICE_URL": pipeline.stack_output(pre_prod_app.url_output)
                 },
             )
         )
-
-        pre_prod_stage.add_manual_approval_action(action_name="PromoteToProd")
         pipeline.add_application_stage(
             WebServiceStage(
                 self,
