@@ -19,7 +19,7 @@ class PipelineWebinarStack(core.Stack):
             self,
             "CustomHandler",
             runtime=lmb.Runtime.PYTHON_3_7,
-            handler="handler.custom",
+            handler="custom.custom",
             code=lmb.Code.from_asset(path.join(this_dir, "lambda")),
         )
 

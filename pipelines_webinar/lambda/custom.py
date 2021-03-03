@@ -4,6 +4,6 @@ logger = logging.getLogger("handler")
 logger.setLevel(logging.INFO)
 
 
-def handler(event, context):
+def custom(event, context):
     logger.info(event)
-    return {"body": "Hello from lambda", "statusCode": "200"}
+    return {"body": "Goodbye from lambda", "statusCode": "200"}

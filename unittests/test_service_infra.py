@@ -16,4 +16,4 @@ def test_lambda_handler():
     ]
     assert len(functions) == 2
     assert functions[0]["Properties"]["Handler"] == "handler.handler"
-    assert functions[1]["Properties"]["Handler"] == "handler.custom"
+    assert functions[1]["Properties"]["Handler"] == "custom.custom"
