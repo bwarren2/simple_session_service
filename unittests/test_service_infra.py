@@ -14,5 +14,6 @@ def test_lambda_handler():
         for resource in template["Resources"].values()
         if resource["Type"] == "AWS::Lambda::Function"
     ]
-    assert len(functions) == 1
+    assert len(functions) == 2
     assert functions[0]["Properties"]["Handler"] == "handler.handler"
+    assert functions[1]["Properties"]["Handler"] == "handler.custom"
