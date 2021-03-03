@@ -30,7 +30,7 @@ class PipelineWebinarStack(core.Stack):
             handler=hello_handler.current_version,
             proxy=False,
         )
-
+        api.add_method("GET", integration=apigw.LambdaIntegration(hello_handler))
         items = api.root.add_resource("items")
         items.add_method("GET", integration=apigw.LambdaIntegration(custom_handler))
 
