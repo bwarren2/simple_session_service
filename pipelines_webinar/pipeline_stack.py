@@ -47,7 +47,7 @@ class PipelineStack(core.Stack):
                 action_name="UnitTest",
                 run_order=pre_prod_stage.next_sequential_run_order(),
                 additional_artifacts=[source_artifact],
-                commands=["pip install -r requirements.txt", "pytest integtests"],
+                commands=["pip install -r requirements.txt", "pytest unittests"],
             ),
             pipelines.ShellScriptAction(
                 action_name="Integ",
