@@ -12,14 +12,22 @@ class PipelineWebinarStack(core.Stack):
             self,
             "Handler",
             runtime=lmb.Runtime.PYTHON_3_7,
-            handler="handler.handler",
+            handler="sessions.hello",
             code=lmb.Code.from_asset(path.join(this_dir, "lambda")),
         )
-        custom_handler = lmb.Function(
+        create_handler = lmb.Function(
             self,
-            "CustomHandler",
+            "CreateHandler",
             runtime=lmb.Runtime.PYTHON_3_7,
-            handler="custom.custom",
+            handler="sessions.create",
+            code=lmb.Code.from_asset(path.join(this_dir, "lambda")),
+        )
+
+        listing_handler = lmb.Function(
+            self,
+            "ListingHandler",
+            runtime=lmb.Runtime.PYTHON_3_7,
+            handler="sessions.listing",
             code=lmb.Code.from_asset(path.join(this_dir, "lambda")),
         )
 
@@ -32,7 +40,8 @@ class PipelineWebinarStack(core.Stack):
         )
         api.root.add_method("GET", integration=apigw.LambdaIntegration(hello_handler))
 
-        items = api.root.add_resource("items")
-        items.add_method("GET", integration=apigw.LambdaIntegration(custom_handler))
+        items = api.root.add_resource("sessions")
+        items.add_method("GET", integration=apigw.LambdaIntegration(listing_handler))
+        items.add_method("POST", integration=apigw.LambdaIntegration(create_handler))
 
         self.url_output = core.CfnOutput(self, "Url", value=api.url)
