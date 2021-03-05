@@ -1,13 +1,24 @@
 import logging
+import json
+from . import schemas
 
 logger = logging.getLogger("handler")
 logger.setLevel(logging.INFO)
 
 
 def create(event, context):
-    logger.info(event)
-    logger.info(context)
-    return {"body": "Goodbye from lambda", "statusCode": "201"}
+    try:
+        body = event["body"]
+    except KeyError:
+        return {"body": "Missing request body", "statusCode": "400"}
+
+    try:
+        json_body = json.loads(body)
+    except json.JSONDecodeError:
+        return {"body": "Invalid request body", "statusCode": "400"}
+    session = schemas.SessionSchema().load(json_body)
+
+    return {"body": str(session), "statusCode": "201"}
 
 
 def listing(event, context):

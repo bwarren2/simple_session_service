@@ -14,3 +14,17 @@ class Session:
         self.created_at = datetime.now()
         self.expires_at = self.created_at + timedelta(days=EXPIRATION_DAYS)
         self.ttl = int(datetime.timestamp(self.expires_at))
+
+    @property
+    def display_created_at(self):
+        return self.created_at.strftime("%Y/%m/%d, %H:%M:%S")
+
+    @property
+    def display_expires_at(self):
+        return self.expires_at.strftime("%Y/%m/%d, %H:%M:%S")
+
+    def __repr__(self):
+        print(
+            f"Session {self.uid} for {self.username}, for {self.display_created_at} to {self.display_expires_at}"
+        )
+        return f"Session {self.uid} for {self.username}, for {self.display_created_at} to {self.display_expires_at}"
