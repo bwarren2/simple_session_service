@@ -1,6 +1,6 @@
 import logging
 import json
-from . import schemas
+from pipelines_webinar.lambdas import schemas
 
 logger = logging.getLogger("handler")
 logger.setLevel(logging.INFO)
