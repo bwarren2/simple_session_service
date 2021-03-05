@@ -1,5 +1,5 @@
 from marshmallow import Schema, fields, post_load
-from pipelines_webinar.lambdas.models import Session
+from sessions.models import Session
 
 
 class SessionSchema(Schema):

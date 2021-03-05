@@ -1,4 +1,4 @@
-from pipelines_webinar.lambdas import models
+from pipelines_webinar.lambdas.sessions import models
 from freezegun import freeze_time
 from datetime import datetime
 

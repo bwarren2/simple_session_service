@@ -12,14 +12,14 @@ class PipelineWebinarStack(core.Stack):
             self,
             "Handler",
             runtime=lmb.Runtime.PYTHON_3_7,
-            handler="sessions.hello",
+            handler="sessions.handlers.hello",
             code=lmb.Code.from_asset(path.join(this_dir, "lambdas")),
         )
         create_handler = lmb.Function(
             self,
             "CreateHandler",
             runtime=lmb.Runtime.PYTHON_3_7,
-            handler="sessions.create",
+            handler="sessions.handlers.create",
             code=lmb.Code.from_asset(path.join(this_dir, "lambdas")),
         )
 
@@ -27,7 +27,7 @@ class PipelineWebinarStack(core.Stack):
             self,
             "ListingHandler",
             runtime=lmb.Runtime.PYTHON_3_7,
-            handler="sessions.listing",
+            handler="sessions.handlers.listing",
             code=lmb.Code.from_asset(path.join(this_dir, "lambdas")),
         )
 
