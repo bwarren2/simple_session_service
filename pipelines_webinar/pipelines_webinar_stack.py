@@ -20,7 +20,7 @@ class PipelineWebinarStack(core.Stack):
         layer = lmb.LayerVersion(
             self,
             "BaseLayer",
-            code=lmb.Code.asset(os.path.join(this_dir, "lambdas")),
+            code=lmb.Code.asset(os.path.join(this_dir, "lambdas", "sessions", "deps")),
         )
         codeAsset = lmb.Code.from_asset(os.path.join(this_dir, "lambdas"))
         hello_handler = lmb.Function(
