@@ -14,6 +14,10 @@ for root, dirs, files in os.walk("."):
     for filename in files:
         logger.info(filename)
 
+logger.info("##")
+logger.info(os.listdir("."))
+logger.info("##")
+
 
 def create(event, context):
     try:
