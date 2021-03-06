@@ -8,9 +8,15 @@ class PipelineWebinarStack(core.Stack):
     def __init__(self, scope: core.Construct, id: str, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
         this_dir = path.dirname(__file__)
+        layer = lmb.LayerVersion(
+            self,
+            "BaseLayer",
+            code=lmb.Code.asset(path.join(this_dir, "lambdas")),
+        )
         hello_handler = lmb.Function(
             self,
             "Handler",
+            layers=[layer],
             runtime=lmb.Runtime.PYTHON_3_7,
             handler="handlers.hello",
             code=lmb.Code.from_asset(path.join(this_dir, "lambdas")),
@@ -18,6 +24,7 @@ class PipelineWebinarStack(core.Stack):
         create_handler = lmb.Function(
             self,
             "CreateHandler",
+            layers=[layer],
             runtime=lmb.Runtime.PYTHON_3_7,
             handler="handlers.create",
             code=lmb.Code.from_asset(path.join(this_dir, "lambdas")),
@@ -26,6 +33,7 @@ class PipelineWebinarStack(core.Stack):
         listing_handler = lmb.Function(
             self,
             "ListingHandler",
+            layers=[layer],
             runtime=lmb.Runtime.PYTHON_3_7,
             handler="handlers.listing",
             code=lmb.Code.from_asset(path.join(this_dir, "lambdas")),
