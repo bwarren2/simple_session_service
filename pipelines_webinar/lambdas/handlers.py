@@ -5,6 +5,14 @@ from sessions import schemas
 logger = logging.getLogger("handler")
 logger.setLevel(logging.INFO)
 
+import os
+
+print(os.path)
+
+for root, dirs, files in os.walk("."):
+    for filename in files:
+        print(filename)
+
 
 def create(event, context):
     try:
