@@ -1,4 +1,6 @@
-from os import path
+import os
+import subprocess
+
 from aws_cdk import core
 import aws_cdk.aws_lambda as lmb
 import aws_cdk.aws_apigateway as apigw
@@ -7,13 +9,18 @@ import aws_cdk.aws_apigateway as apigw
 class PipelineWebinarStack(core.Stack):
     def __init__(self, scope: core.Construct, id: str, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
-        this_dir = path.dirname(__file__)
+        this_dir = os.path.dirname(__file__)
+        if not os.environ.get("SKIP_PIP"):
+            # Note: Pip will create the output dir if it does not exist
+            subprocess.check_call(
+                f"pip install -r requirements.txt -t {os.path.join(this_dir, 'lambdas')}".split()
+            )
         layer = lmb.LayerVersion(
             self,
             "BaseLayer",
-            code=lmb.Code.asset(path.join(this_dir, "lambdas")),
+            code=lmb.Code.asset(os.path.join(this_dir, "lambdas")),
         )
-        codeAsset = lmb.Code.from_asset(path.join(this_dir, "lambdas"))
+        codeAsset = lmb.Code.from_asset(os.path.join(this_dir, "lambdas"))
         hello_handler = lmb.Function(
             self,
             "Handler",
