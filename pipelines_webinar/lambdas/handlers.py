@@ -1,11 +1,12 @@
+import os
 import logging
 import json
-from sessions import schemas
+
+# from sessions import schemas
 
 logger = logging.getLogger("handler")
 logger.setLevel(logging.INFO)
 
-import os
 
 logger.info(os.path)
 
@@ -24,7 +25,8 @@ def create(event, context):
         json_body = json.loads(body)
     except json.JSONDecodeError:
         return {"body": "Invalid request body", "statusCode": "400"}
-    session = schemas.SessionSchema().load(json_body)
+    # session = schemas.SessionSchema().load(json_body)
+    session = {}
 
     return {"body": str(session), "statusCode": "201"}
 
