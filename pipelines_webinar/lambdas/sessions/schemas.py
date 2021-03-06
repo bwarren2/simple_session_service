@@ -1,4 +1,4 @@
-from deps.marshmallow import Schema, fields, post_load
+from sessions.deps.marshmallow import Schema, fields, post_load
 from sessions.models import Session
 
 
