@@ -13,13 +13,14 @@ class PipelineWebinarStack(core.Stack):
             "BaseLayer",
             code=lmb.Code.asset(path.join(this_dir, "lambdas")),
         )
+        codeAsset = lmb.Code.from_asset(path.join(this_dir, "lambdas"))
         hello_handler = lmb.Function(
             self,
             "Handler",
             layers=[layer],
             runtime=lmb.Runtime.PYTHON_3_7,
             handler="handlers.hello",
-            code=lmb.Code.from_asset(path.join(this_dir, "lambdas")),
+            code=codeAsset,
         )
         create_handler = lmb.Function(
             self,
@@ -27,7 +28,7 @@ class PipelineWebinarStack(core.Stack):
             layers=[layer],
             runtime=lmb.Runtime.PYTHON_3_7,
             handler="handlers.create",
-            code=lmb.Code.from_asset(path.join(this_dir, "lambdas")),
+            code=codeAsset,
         )
 
         listing_handler = lmb.Function(
@@ -36,7 +37,7 @@ class PipelineWebinarStack(core.Stack):
             layers=[layer],
             runtime=lmb.Runtime.PYTHON_3_7,
             handler="handlers.listing",
-            code=lmb.Code.from_asset(path.join(this_dir, "lambdas")),
+            code=codeAsset,
         )
 
         api = apigw.LambdaRestApi(
