@@ -2,7 +2,7 @@ import os
 import logging
 import json
 
-from sessions import schemas
+# from sessions import schemas
 
 logger = logging.getLogger("handler")
 logger.setLevel(logging.INFO)

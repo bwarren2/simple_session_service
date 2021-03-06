@@ -13,14 +13,14 @@ class PipelineWebinarStack(core.Stack):
         if not os.environ.get("SKIP_PIP"):
             # Note: Pip will create the output dir if it does not exist
             subprocess.check_call(
-                f"pip install -r \
+                f"pip install -U -r \
                     {os.path.join(this_dir, 'lambdas', 'requirements.txt')} \
-                    -t {os.path.join(this_dir, 'lambdas', 'sessions', 'deps')}".split()
+                    -t {os.path.join(this_dir, 'deps')}".split()
             )
         layer = lmb.LayerVersion(
             self,
             "BaseLayer",
-            code=lmb.Code.asset(os.path.join(this_dir, "lambdas", "sessions", "deps")),
+            code=lmb.Code.asset(os.path.join(this_dir, "deps")),
         )
         codeAsset = lmb.Code.from_asset(os.path.join(this_dir, "lambdas"))
         hello_handler = lmb.Function(
