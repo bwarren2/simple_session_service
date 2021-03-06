@@ -13,7 +13,9 @@ class PipelineWebinarStack(core.Stack):
         if not os.environ.get("SKIP_PIP"):
             # Note: Pip will create the output dir if it does not exist
             subprocess.check_call(
-                f"pip install -r requirements.txt -t {os.path.join(this_dir, 'lambdas')}".split()
+                f"pip install -r \
+                    {os.path.join(this_dir, 'lambdas', 'requirements.txt')} \
+                    -t {os.path.join(this_dir, 'lambdas', 'deps')}".split()
             )
         layer = lmb.LayerVersion(
             self,
