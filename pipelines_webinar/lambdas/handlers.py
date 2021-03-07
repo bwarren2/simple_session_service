@@ -1,4 +1,5 @@
 import os
+import sys
 import logging
 import json
 
@@ -8,8 +9,12 @@ logger = logging.getLogger("handler")
 logger.setLevel(logging.INFO)
 
 
+logger.info("Sys.path:")
+logger.info(sys.path)
+logger.info("OS.path:")
 logger.info(os.path)
 
+logger.info("Walk of opt/:")
 for root, dirs, files in os.walk("/opt"):
     for filename in files:
         logger.info(dirs)
