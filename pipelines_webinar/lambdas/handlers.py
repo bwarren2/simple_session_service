@@ -15,8 +15,9 @@ for root, dirs, files in os.walk("."):
         logger.info(filename)
 
 logger.info("##")
+logger.info(os.listdir("."))
 logger.info(os.listdir("sessions"))
-logger.info(os.listdir("sessions/deps"))
+# logger.info(os.listdir("sessions/deps"))
 logger.info("##")
 
 
