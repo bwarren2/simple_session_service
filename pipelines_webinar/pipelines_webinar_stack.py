@@ -15,7 +15,7 @@ class PipelineWebinarStack(core.Stack):
             subprocess.check_call(
                 f"pip install -U -r \
                     {os.path.join(this_dir, 'lambdas', 'requirements.txt')} \
-                    -t {os.path.join(this_dir, 'deps')}".split()
+                    -t {os.path.join(this_dir, 'layer', 'python')}".split()
             )
         layer = lmb.LayerVersion(
             self,
