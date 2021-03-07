@@ -12,9 +12,11 @@ logger.info(os.path)
 
 for root, dirs, files in os.walk("."):
     for filename in files:
+        logger.info(dirs)
         logger.info(filename)
 
 logger.info("##")
+logger.info(os.listdir("/"))
 logger.info(os.listdir("."))
 logger.info(os.listdir("sessions"))
 # logger.info(os.listdir("sessions/deps"))
