@@ -92,3 +92,4 @@ class PipelineWebinarStack(core.Stack):
             "GET", integration=apigw.LambdaIntegration(retrieve_handler)
         )  # GET /items/{item}
         self.url_output = core.CfnOutput(self, "Url", value=api.url)
+        self.table_name_output = core.CfnOutput(self, "name", value=table.table_name)
