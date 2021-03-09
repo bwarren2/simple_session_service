@@ -42,7 +42,9 @@ def listing(event, context):
         TableName=os.getenv("SESSION_TABLE_NAME"),
         KeyConditionExpression="#DYNOBASE_SessionToken = :pkey",
         ExpressionAttributeNames={"#DYNOBASE_SessionToken": "SessionToken"},
-        ExpressionAttributeValues={":pkey": "f5d5189c-6a07-4666-85ae-797029cc3862"},
+        ExpressionAttributeValues={
+            ":pkey": {"S": "f5d5189c-6a07-4666-85ae-797029cc3862"}
+        },
     )
     logger.info(response)
     return {"body": "a list", "statusCode": "200"}
