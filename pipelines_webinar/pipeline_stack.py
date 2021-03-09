@@ -47,11 +47,6 @@ class PipelineStack(core.Stack):
                 run_order=pre_prod_stage.next_sequential_run_order(),
                 additional_artifacts=[source_artifact],
                 commands=["pip install -r requirements.txt", "pytest unittests"],
-                use_outputs={
-                    "SESSION_TABLE_NAME": pipeline.stack_output(
-                        pre_prod_app.table_name_output
-                    )
-                },
             ),
             pipelines.ShellScriptAction(
                 action_name="Integ",
