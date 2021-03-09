@@ -35,3 +35,8 @@ Create lambda layer correctly, with the subprocess call writing to the place the
 Found where artifacts are stored for my substack.  In S3:
 default-pipelineartifactsbucketaea9a052-lpsqy28hbwaq/WebinarPipeline/Artifact_B/9qG6Cbj
 Inside the PreProdWebService8885BFD7.template file.
+
+ExpressionAttributeValues are a dict of replacement implies dict of type implies value.  Call this a KeyTypeValue
+Dynobase uses not-ADB-recommended DDB lookups instead of client get/put/query/scan.
+PutItem signature: TableName, Item=KeyTypeValue, ConditionExpression=function(attr)
+GetItem signature: Tablename, Key=KeyTypeValue
