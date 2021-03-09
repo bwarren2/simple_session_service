@@ -28,7 +28,7 @@ def create(event, context):
             "Username": {"S": session.username},
             "CreatedAt": {"S": str(session.created_at)},
             "ExpiresAt": {"S": str(session.expires_at)},
-            "TTL": {"N": int(session.ttl)},
+            "TTL": {"N": str(session.ttl)},
         },
         ConditionExpression="attribute_not_exists(SessionToken)",
     )
