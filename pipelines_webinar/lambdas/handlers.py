@@ -24,11 +24,11 @@ def create(event, context):
     item = client.put_item(
         TableName=os.getenv("SESSION_TABLE_NAME"),
         Item={
-            "SessionToken": {"S": session.uid},
+            "SessionToken": {"S": str(session.uid)},
             "Username": {"S": session.username},
-            "CreatedAt": {"S": session.created_at},
-            "ExpiresAt": {"S": session.expires_at},
-            "TTL": {"N": session.ttl},
+            "CreatedAt": {"S": str(session.created_at)},
+            "ExpiresAt": {"S": str(session.expires_at)},
+            "TTL": {"N": int(session.ttl)},
         },
         ConditionExpression="attribute_not_exists(SessionToken)",
     )
