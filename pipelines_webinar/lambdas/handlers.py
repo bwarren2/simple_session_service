@@ -40,5 +40,11 @@ def listing(event, context):
     return {"body": "a list", "statusCode": "200"}
 
 
+def retrieve(event, context):
+    logger.info(event)
+    logger.info(context)
+    return {"body": "a retrieve", "statusCode": "200"}
+
+
 def hello(event, context):
     return {"body": "Hello from lambda", "statusCode": "200"}
