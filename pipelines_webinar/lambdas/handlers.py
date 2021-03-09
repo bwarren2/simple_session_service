@@ -57,6 +57,9 @@ def retrieve(event, context):
         Key={"SessionToken": {"S": "f5d5189c-6a07-4666-85ae-797029cc3862"}},
     )
     logger.info(response)
+    logger.info(event)
+    logger.info(context)
+    logger.info(dir(response))
     return {"body": "a retrieve", "statusCode": "200"}
 
 
