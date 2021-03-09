@@ -86,8 +86,8 @@ class PipelineWebinarStack(core.Stack):
         items.add_method("GET", integration=apigw.LambdaIntegration(listing_handler))
         items.add_method("POST", integration=apigw.LambdaIntegration(create_handler))
 
-        item = items.addResource("{item}")
-        item.addMethod(
+        item = items.add_resource("{item}")
+        item.add_method(
             "GET", integration=apigw.LambdaIntegration(retrieve_handler)
         )  # GET /items/{item}
         self.url_output = core.CfnOutput(self, "Url", value=api.url)
