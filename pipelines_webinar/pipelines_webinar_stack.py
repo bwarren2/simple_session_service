@@ -10,6 +10,15 @@ import aws_cdk.aws_dynamodb as dynamodb
 class PipelineWebinarStack(core.Stack):
     def __init__(self, scope: core.Construct, id: str, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
+
+        table = dynamodb.Table(
+            self,
+            "SessionTable",
+            partition_key=dynamodb.Attribute(
+                name="SessionToken", type=dynamodb.AttributeType.STRING
+            ),
+        )
+
         this_dir = os.path.dirname(__file__)
         if not os.environ.get("SKIP_PIP"):
             # Note: Pip will create the output dir if it does not exist
@@ -24,6 +33,7 @@ class PipelineWebinarStack(core.Stack):
             code=lmb.Code.asset(os.path.join(this_dir, "layer")),
         )
         codeAsset = lmb.Code.from_asset(os.path.join(this_dir, "lambdas"))
+
         hello_handler = lmb.Function(
             self,
             "Handler",
@@ -39,8 +49,8 @@ class PipelineWebinarStack(core.Stack):
             runtime=lmb.Runtime.PYTHON_3_7,
             handler="handlers.create",
             code=codeAsset,
+            environment={"SESSION_TABLE_NAME": table.tableName},
         )
-
         listing_handler = lmb.Function(
             self,
             "ListingHandler",
@@ -48,14 +58,7 @@ class PipelineWebinarStack(core.Stack):
             runtime=lmb.Runtime.PYTHON_3_7,
             handler="handlers.listing",
             code=codeAsset,
-        )
-
-        table = dynamodb.Table(
-            self,
-            "SessionTable",
-            partition_key=dynamodb.Attribute(
-                name="SessionToken", type=dynamodb.AttributeType.STRING
-            ),
+            environment={"SESSION_TABLE_NAME": table.tableName},
         )
 
         table.grant_read_data(listing_handler)
