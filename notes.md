@@ -14,3 +14,19 @@ Create Github token.  Put it in secrets manager as a plain text secret.  Remembe
 ## Bootstrap
 
 cdk bootstrap --cloudformation-execution-policies arn:aws:iam::aws:policy/AdministratorAccess
+
+
+20210301
+With proxy=false, need to define all the routes or they sever error
+Add to root with api.root.add_method
+
+ApiGWv2 has more natural ergonomics, but might not be fully CDK'd yet
+Don't need to split handler across files, DO need unique names on functions
+Tests are great, use em.
+
+20210306
+Use a lambda layer.  The bundling docker image doesn't communicate with the local docker host correctly.
+Layers get loaded in /opt/.
+
+20210307
+Create lambda layer correctly, with the subprocess call writing to the place the lambda reads from, and it Just Works!

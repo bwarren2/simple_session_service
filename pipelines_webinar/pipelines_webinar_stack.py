@@ -4,6 +4,7 @@ import subprocess
 from aws_cdk import core
 import aws_cdk.aws_lambda as lmb
 import aws_cdk.aws_apigateway as apigw
+import aws_cdk.aws_dynamodb as dynamodb
 
 
 class PipelineWebinarStack(core.Stack):
@@ -48,6 +49,17 @@ class PipelineWebinarStack(core.Stack):
             handler="handlers.listing",
             code=codeAsset,
         )
+
+        table = dynamodb.Table(
+            self,
+            "SessionTable",
+            partition_key=dynamodb.Attribute(
+                name="SessionToken", type=dynamodb.AttributeType.STRING
+            ),
+        )
+
+        table.grant_read_data(listing_handler)
+        table.grant_read_write_data(create_handler)
 
         api = apigw.LambdaRestApi(
             self,
