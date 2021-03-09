@@ -49,7 +49,7 @@ class PipelineWebinarStack(core.Stack):
             runtime=lmb.Runtime.PYTHON_3_7,
             handler="handlers.create",
             code=codeAsset,
-            environment={"SESSION_TABLE_NAME": table.tableName},
+            environment={"SESSION_TABLE_NAME": table.table_name},
         )
         listing_handler = lmb.Function(
             self,
@@ -58,7 +58,7 @@ class PipelineWebinarStack(core.Stack):
             runtime=lmb.Runtime.PYTHON_3_7,
             handler="handlers.listing",
             code=codeAsset,
-            environment={"SESSION_TABLE_NAME": table.tableName},
+            environment={"SESSION_TABLE_NAME": table.tabletable_nameName},
         )
 
         table.grant_read_data(listing_handler)
