@@ -56,7 +56,7 @@ def retrieve(event, context):
     client = boto3.client("dynamodb")
     response = client.get_item(
         TableName=os.getenv("SESSION_TABLE_NAME"),
-        Key={{"SessionToken": {"S": "f5d5189c-6a07-4666-85ae-797029cc3862"}}},
+        Key={"SessionToken": {"S": "f5d5189c-6a07-4666-85ae-797029cc3862"}},
     )
     logger.info(response)
     return {"body": "a retrieve", "statusCode": "200"}
