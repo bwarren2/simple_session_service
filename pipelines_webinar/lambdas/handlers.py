@@ -37,12 +37,28 @@ def create(event, context):
 
 
 def listing(event, context):
+    dynamodb = boto3.resource("dynamodb", region_name="us-east-1")
+
+    table = dynamodb.Table("Pre-Prod-WebService-SessionTableA016F679-5QR7WFPT3FG")
+    response = table.scan(
+        TableName=os.getenv("SESSION_TABLE_NAME"),
+        ScanIndexForward=True,
+        Limit=10,
+        FilterExpression="#DYNOBASE_Username = :Username",
+        ExpressionAttributeNames={"#DYNOBASE_Username": "Username"},
+        ExpressionAttributeValues={":Username": "ben"},
+    )
+    logger.info(response)
     return {"body": "a list", "statusCode": "200"}
 
 
 def retrieve(event, context):
-    logger.info(event)
-    logger.info(context)
+    client = boto3.client("dynamodb")
+    response = client.get_item(
+        TableName=os.getenv("SESSION_TABLE_NAME"),
+        Key={{"SessionToken": {"S": "f5d5189c-6a07-4666-85ae-797029cc3862"}}},
+    )
+    logger.info(response)
     return {"body": "a retrieve", "statusCode": "200"}
 
 

@@ -60,6 +60,15 @@ class PipelineWebinarStack(core.Stack):
             code=codeAsset,
             environment={"SESSION_TABLE_NAME": table.table_name},
         )
+        retrieve_handler = lmb.Function(
+            self,
+            "RetrieveHandler",
+            layers=[layer],
+            runtime=lmb.Runtime.PYTHON_3_7,
+            handler="handlers.retrieve",
+            code=codeAsset,
+            environment={"SESSION_TABLE_NAME": table.table_name},
+        )
 
         table.grant_read_data(listing_handler)
         table.grant_read_write_data(create_handler)
@@ -77,6 +86,8 @@ class PipelineWebinarStack(core.Stack):
         items.add_method("GET", integration=apigw.LambdaIntegration(listing_handler))
         items.add_method("POST", integration=apigw.LambdaIntegration(create_handler))
 
-        item = items.addResource('{item}');
-        item.addMethod('GET',i ntegration=apigw.LambdaIntegration(retrieve_handler))  # GET /items/{item}
+        item = items.addResource("{item}")
+        item.addMethod(
+            "GET", integration=apigw.LambdaIntegration(retrieve_handler)
+        )  # GET /items/{item}
         self.url_output = core.CfnOutput(self, "Url", value=api.url)
