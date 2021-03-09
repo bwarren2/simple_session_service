@@ -56,7 +56,7 @@ def retrieve(event, context):
         TableName=os.getenv("SESSION_TABLE_NAME"),
         Key={"SessionToken": {"S": "f5d5189c-6a07-4666-85ae-797029cc3862"}},
     )
-    logger.info(response)
+    # logger.info(response)
     logger.info(event)
     logger.info(context)
     logger.info(dir(response))
