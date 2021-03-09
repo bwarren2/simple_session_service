@@ -30,3 +30,8 @@ Layers get loaded in /opt/.
 
 20210307
 Create lambda layer correctly, with the subprocess call writing to the place the lambda reads from, and it Just Works!
+
+20210308
+Found where artifacts are stored for my substack.  In S3:
+default-pipelineartifactsbucketaea9a052-lpsqy28hbwaq/WebinarPipeline/Artifact_B/9qG6Cbj
+Inside the PreProdWebService8885BFD7.template file.
