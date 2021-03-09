@@ -71,6 +71,7 @@ class PipelineWebinarStack(core.Stack):
         )
 
         table.grant_read_data(listing_handler)
+        table.grant_read_data(retrieve_handler)
         table.grant_read_write_data(create_handler)
 
         api = apigw.LambdaRestApi(
