@@ -16,21 +16,35 @@ def test_lambda_handler():
         for resource in template["Resources"].values()
         if resource["Type"] == "AWS::Lambda::Function"
     ]
-    assert len(functions) == 3
+    assert len(functions) == 4
     assert functions[0]["Properties"]["Handler"] == "handlers.hello"
     assert functions[1]["Properties"]["Handler"] == "handlers.create"
     assert functions[2]["Properties"]["Handler"] == "handlers.listing"
+    assert functions[3]["Properties"]["Handler"] == "handlers.retrieve"
 
 
 @freeze_time("2020-01-01")
 def test_create_handler_successful(mocker):
     input_event = {"body": '{\n "username": "ben"\n}', "isBase64Encoded": False}
+    client_mock = mocker.MagicMock()
+    mocker.patch("boto3.client", lambda x: client_mock)
     mocker.patch("sessions.models.uuid4", lambda: "A")
     output = handlers.create(input_event, {})
     assert output == {
         "body": "Session A for ben, for 2020/01/01, 00:00:00 to 2020/01/02, 00:00:00",
         "statusCode": "201",
     }
+    client_mock.put_item.assert_called_with(
+        ConditionExpression="attribute_not_exists(SessionToken)",
+        Item={
+            "SessionToken": {"S": "A"},
+            "Username": {"S": "ben"},
+            "CreatedAt": {"S": "2020-01-01 00:00:00"},
+            "ExpiresAt": {"S": "2020-01-02 00:00:00"},
+            "TTL": {"N": "1577923200"},
+        },
+        TableName='"testing_table"',
+    )
 
 
 def test_create_handler_invalid_json(mocker):
