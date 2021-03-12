@@ -31,7 +31,7 @@ def create(event, context):
             "TTL": {"N": str(session.ttl)},
         },
         ConditionExpression="attribute_not_exists(SessionToken)",
-        ReturnValues="ALL_NEW",
+        ReturnValues="ALL_OLD",
     )
     logger.info(item)
     return {"body": str(session), "statusCode": "201"}
