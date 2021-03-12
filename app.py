@@ -2,7 +2,6 @@
 
 from aws_cdk import core
 
-from pipelines_webinar.pipelines_webinar_stack import PipelineWebinarStack
 from pipelines_webinar.pipeline_stack import PipelineStack
 
 
