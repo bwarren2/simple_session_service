@@ -40,3 +40,5 @@ ExpressionAttributeValues are a dict of replacement implies dict of type implies
 Dynobase uses not-ADB-recommended DDB lookups instead of client get/put/query/scan.
 PutItem signature: TableName, Item=KeyTypeValue, ConditionExpression=function(attr)
 GetItem signature: Tablename, Key=KeyTypeValue
+DDB return values are complex dicts
+Get path params from event like `event["pathParameters"] # {"item": "f5d5189c-6a07-4666-85ae-797029cc3862"}`
