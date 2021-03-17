@@ -56,3 +56,8 @@ command.
  * `cdk docs`        open CDK documentation
 
 Enjoy!
+
+
+# Testing
+
+Use `pytest --cov=pipelines_webinar/ --cov-report xml:cov.xml unittests/ -vv`

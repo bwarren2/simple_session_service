@@ -16,7 +16,11 @@ freezegun==1.1.0
 isort==5.7.0
 marshmallow==3.10.0
 pylama==7.7.1
-pytest==6.2.2
-pytest-mock==3.5.1
 requests==2.25.1
 pytest-env==0.6.2
+pytest==6.2.2
+pytest-cov==2.11.1
+pytest-env==0.6.2
+pytest-icdiff==0.5
+pytest-mock==3.5.1
+pytest-sugar==0.9.4

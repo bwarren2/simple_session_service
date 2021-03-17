@@ -1,3 +1,4 @@
+import os
 from aws_cdk import core
 from pipelines_webinar.pipelines_webinar_stack import PipelineWebinarStack
 from pipelines_webinar.lambdas import handlers
@@ -27,23 +28,25 @@ def test_lambda_handler():
 def test_create_handler_successful(mocker):
     input_event = {"body": '{\n "username": "ben"\n}', "isBase64Encoded": False}
     client_mock = mocker.MagicMock()
-    mocker.patch("boto3.client", lambda x: client_mock)
+    mocker.patch("boto3.resource", lambda x: client_mock)
     mocker.patch("sessions.models.uuid4", lambda: "A")
     output = handlers.create(input_event, {})
     assert output == {
         "body": "Session A for ben, for 2020/01/01, 00:00:00 to 2020/01/02, 00:00:00",
         "statusCode": "201",
     }
-    client_mock.put_item.assert_called_with(
+    client_mock.Table.assert_called_with(os.getenv("SESSION_TABLE_NAME"))
+
+    client_mock.Table.return_value.put_item.assert_called_with(
         ConditionExpression="attribute_not_exists(SessionToken)",
         Item={
-            "SessionToken": {"S": "A"},
-            "Username": {"S": "ben"},
-            "CreatedAt": {"S": "2020-01-01 00:00:00"},
-            "ExpiresAt": {"S": "2020-01-02 00:00:00"},
-            "TTL": {"N": "1577923200"},
+            "SessionToken": "A",
+            "Username": "ben",
+            "CreatedAt": "2020-01-01 00:00:00",
+            "ExpiresAt": "2020-01-02 00:00:00",
+            "TTL": "1577923200",
         },
-        TableName='"testing_table"',
+        ReturnValues="ALL_OLD",
     )
 
 

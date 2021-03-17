@@ -1,9 +1,4 @@
 CDK:
-    ✔ Create DDB Table @done(21-03-08 20:57)
-    ✔ Give handlers permissions @done(21-03-08 20:57)
-    ✔ Deploy @started(21-03-08 20:57) @done(21-03-08 21:18) @lasted(21m50s)
-    ✔ Install boto @done(21-03-08 21:19)
-    ✔ Attempt table write @started(21-03-08 21:19) @done(21-03-08 21:56) @lasted(37m27s)
     ☐ Attempt table read @started(21-03-08 22:09)
     ☐ Add delete functionality
     ☐ Add test for handlers using mocks
@@ -12,8 +7,10 @@ Optional:
     ☐ Add request model
 
 
-
-Admin:
-    ✔ Make Todos file @done(21-03-08 20:57)
-
 Archive:
+  ✔ Create DDB Table @done(21-03-08 20:57) @project(CDK)
+  ✔ Give handlers permissions @done(21-03-08 20:57) @project(CDK)
+  ✔ Deploy @started(21-03-08 20:57) @done(21-03-08 21:18) @lasted(21m50s) @project(CDK)
+  ✔ Install boto @done(21-03-08 21:19) @project(CDK)
+  ✔ Attempt table write @started(21-03-08 21:19) @done(21-03-08 21:56) @lasted(37m27s) @project(CDK)
+  ✔ Make Todos file @done(21-03-08 20:57) @project(Admin)
