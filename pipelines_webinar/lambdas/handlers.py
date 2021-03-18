@@ -32,7 +32,11 @@ def create(event, context):
     logger.info("Wrote the item")
     logger.info(dict(json_data))
 
-    return {"body": dict(json_data), "statusCode": "201"}
+    return {
+        "body": json_data,
+        "statusCode": "201",
+        "headers": {"Content-Type": "application/json"},
+    }
 
 
 def listing(event, context):
