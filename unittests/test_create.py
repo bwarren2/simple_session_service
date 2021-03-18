@@ -22,6 +22,7 @@ def test_create_handler_successful(mocker):
             "username": "ben",
         },
         "statusCode": "201",
+        "headers": {"Content-Type": "application/json"},
     }
     resource_mock.Table.assert_called_with(os.getenv("SESSION_TABLE_NAME"))
 

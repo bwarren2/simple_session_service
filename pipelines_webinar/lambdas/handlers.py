@@ -33,7 +33,7 @@ def create(event, context):
     logger.info(dict(json_data))
 
     return {
-        "body": json_data,
+        "body": dict(json_data),
         "statusCode": "201",
         "headers": {"Content-Type": "application/json"},
     }
