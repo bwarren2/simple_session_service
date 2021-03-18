@@ -32,7 +32,9 @@ def create(event, context):
         ConditionExpression="attribute_not_exists(SessionToken)",
         ReturnValues="ALL_OLD",
     )
+    logger.info("Got back:")
     logger.info(item)
+    logger.info("Done")
     return {"body": str(session), "statusCode": "201"}
 
 
