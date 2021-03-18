@@ -1,4 +1,5 @@
 import os
+from collections import OrderedDict
 from aws_cdk import core
 from pipelines_webinar.pipelines_webinar_stack import PipelineWebinarStack
 from pipelines_webinar.lambdas import handlers
@@ -20,13 +21,15 @@ def test_create_handler_successful(mocker):
 
     resource_mock.Table.return_value.put_item.assert_called_with(
         ConditionExpression="attribute_not_exists(session_token)",
-        Item={
-            "session_token": "A",
-            "username": "ben",
-            "created_at": "2020-01-01 00:00:00",
-            "expires_at": "2020-01-02 00:00:00",
-            "ttl": "1577923200",
-        },
+        Item=OrderedDict(
+            [
+                ("session_token", "A"),
+                ("username", "ben"),
+                ("created_at", "2020-01-01T00:00:00"),
+                ("expires_at", "2020-01-02T00:00:00"),
+                ("ttl", 1577923200),
+            ]
+        ),
     )
 
 
