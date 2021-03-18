@@ -12,3 +12,6 @@ class SessionSchema(Schema):
     @post_load
     def make_session(self, data, **kwargs):
         return Session(**data)
+
+    class Meta:
+        ordered = True

@@ -26,7 +26,7 @@ def create(event, context):
     table = boto3.resource("dynamodb").Table(os.getenv("SESSION_TABLE_NAME"))
     table.put_item(
         Item=json_data,
-        ConditionExpression="attribute_not_exists(SessionToken)",
+        ConditionExpression="attribute_not_exists(session_token)",
     )
 
     logger.info("Wrote the item")
@@ -39,7 +39,7 @@ def listing(event, context):
     table = boto3.resource("dynamodb").Table(os.getenv("SESSION_TABLE_NAME"))
     response = table.query(
         KeyConditionExpression="#DYNOBASE_SessionToken = :pkey",
-        ExpressionAttributeNames={"#DYNOBASE_SessionToken": "SessionToken"},
+        ExpressionAttributeNames={"#DYNOBASE_SessionToken": "session_token"},
         ExpressionAttributeValues={":pkey": "f5d5189c-6a07-4666-85ae-797029cc3862"},
     )
     logger.info(response)
@@ -49,7 +49,7 @@ def listing(event, context):
 def retrieve(event, context):
     table = boto3.resource("dynamodb").Table(os.getenv("SESSION_TABLE_NAME"))
     response = table.get_item(
-        Key={"SessionToken": event["pathParameters"]["item"]},
+        Key={"session_token": event["pathParameters"]["item"]},
     )
     logger.info(response)
     return {"body": "a retrieve", "statusCode": "200"}

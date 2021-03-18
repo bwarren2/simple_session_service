@@ -19,7 +19,7 @@ def test_create_handler_successful(mocker):
     resource_mock.Table.assert_called_with(os.getenv("SESSION_TABLE_NAME"))
 
     resource_mock.Table.return_value.put_item.assert_called_with(
-        ConditionExpression="attribute_not_exists(SessionToken)",
+        ConditionExpression="attribute_not_exists(session_token)",
         Item={
             "session_token": "A",
             "username": "ben",
