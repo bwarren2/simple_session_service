@@ -14,15 +14,13 @@ def test_create_handler_successful(mocker):
     mocker.patch("sessions.models.uuid4", lambda: "A")
     output = handlers.create(input_event, {})
     assert output == {
-        "body": OrderedDict(
-            [
-                ("session_token", "A"),
-                ("username", "ben"),
-                ("created_at", "2020-01-01T00:00:00"),
-                ("expires_at", "2020-01-02T00:00:00"),
-                ("ttl", 1577923200),
-            ]
-        ),
+        "body": {
+            "created_at": "2020-01-01T00:00:00",
+            "expires_at": "2020-01-02T00:00:00",
+            "session_token": "A",
+            "ttl": 1577923200,
+            "username": "ben",
+        },
         "statusCode": "201",
     }
     resource_mock.Table.assert_called_with(os.getenv("SESSION_TABLE_NAME"))
