@@ -2,11 +2,19 @@ import os
 import logging
 import json
 import boto3
+import decimal
 
 from sessions import schemas
 
 logger = logging.getLogger("handler")
 logger.setLevel(logging.INFO)
+
+
+class DecimalEncoder(json.JSONEncoder):
+    def default(self, o):
+        if isinstance(o, decimal.Decimal):
+            return str(o)
+        return super(DecimalEncoder, self).default(o)
 
 
 def create(event, context):
@@ -30,9 +38,6 @@ def create(event, context):
         ConditionExpression="attribute_not_exists(session_token)",
     )
 
-    logger.info("Wrote the item")
-    logger.info(json_string_data)
-
     return {
         "body": json_string_data,
         "statusCode": "201",
@@ -42,13 +47,11 @@ def create(event, context):
 
 def listing(event, context):
     table = boto3.resource("dynamodb").Table(os.getenv("SESSION_TABLE_NAME"))
-    response = table.query(
-        KeyConditionExpression="#DYNOBASE_SessionToken = :pkey",
-        ExpressionAttributeNames={"#DYNOBASE_SessionToken": "session_token"},
-        ExpressionAttributeValues={":pkey": "f5d5189c-6a07-4666-85ae-797029cc3862"},
-    )
-    logger.info(response)
-    return {"body": "a list", "statusCode": "200"}
+    response = table.scan(Limit=3)
+    return {
+        "body": json.dumps(response["Items"], cls=DecimalEncoder),
+        "statusCode": "200",
+    }
 
 
 def retrieve(event, context):
@@ -56,8 +59,10 @@ def retrieve(event, context):
     response = table.get_item(
         Key={"session_token": event["pathParameters"]["item"]},
     )
-    logger.info(response)
-    return {"body": "a retrieve", "statusCode": "200"}
+    return {
+        "body": json.dumps(response["Item"], cls=DecimalEncoder),
+        "statusCode": "200",
+    }
 
 
 def hello(event, context):

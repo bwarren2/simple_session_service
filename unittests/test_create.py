@@ -54,6 +54,14 @@ def test_create_handler_no_body(mocker):
     }
 
 
-# def test_no_mocks_test_create_handler_successful(mocker):
-#     input_event = {"body": '{\n "username": "ben"\n}', "isBase64Encoded": False}
-#     output = handlers.create(input_event, {})
+def test_create(mocker):
+    input_event = {"body": '{\n "username": "ben"\n}', "isBase64Encoded": False}
+    handlers.create(input_event, {})
+
+
+def test_check(mocker):
+    input_event = {
+        "pathParameters": {"item": "c9ae0f18-397e-4f71-b6e9-f93c0c83c974"},
+        "isBase64Encoded": False,
+    }
+    print(handlers.retrieve(input_event, {}))
