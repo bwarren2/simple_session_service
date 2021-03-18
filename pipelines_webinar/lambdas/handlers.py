@@ -30,7 +30,7 @@ def create(event, context):
     )
 
     logger.info("Wrote the item")
-    logger.info(json_data)
+    logger.info(dict(json_data))
 
     return {"body": dict(json_data), "statusCode": "201"}
 
