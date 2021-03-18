@@ -24,7 +24,4 @@ class Session:
         return self.expires_at.strftime("%Y/%m/%d, %H:%M:%S")
 
     def __repr__(self):
-        print(
-            f"Session {self.session_token} for {self.username}, for {self.display_created_at} to {self.display_expires_at}"
-        )
         return f"Session {self.session_token} for {self.username}, for {self.display_created_at} to {self.display_expires_at}"
