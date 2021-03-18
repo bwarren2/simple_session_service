@@ -1,5 +1,5 @@
 CDK:
-    ☐ Attempt table read @started(21-03-08 22:09)
+    ✔ Attempt table read @started(21-03-08 22:09) @done(21-03-16 23:26) @lasted(1w1d17m35s)
     ☐ Add delete functionality
     ☐ Add test for handlers using mocks
 

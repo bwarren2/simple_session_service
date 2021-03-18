@@ -27,17 +27,17 @@ def test_lambda_handler():
 @freeze_time("2020-01-01")
 def test_create_handler_successful(mocker):
     input_event = {"body": '{\n "username": "ben"\n}', "isBase64Encoded": False}
-    client_mock = mocker.MagicMock()
-    mocker.patch("boto3.resource", lambda x: client_mock)
+    resource_mock = mocker.MagicMock()
+    mocker.patch("boto3.resource", lambda x: resource_mock)
     mocker.patch("sessions.models.uuid4", lambda: "A")
     output = handlers.create(input_event, {})
     assert output == {
         "body": "Session A for ben, for 2020/01/01, 00:00:00 to 2020/01/02, 00:00:00",
         "statusCode": "201",
     }
-    client_mock.Table.assert_called_with(os.getenv("SESSION_TABLE_NAME"))
+    resource_mock.Table.assert_called_with(os.getenv("SESSION_TABLE_NAME"))
 
-    client_mock.Table.return_value.put_item.assert_called_with(
+    resource_mock.Table.return_value.put_item.assert_called_with(
         ConditionExpression="attribute_not_exists(SessionToken)",
         Item={
             "SessionToken": "A",
