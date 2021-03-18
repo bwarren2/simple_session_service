@@ -24,7 +24,7 @@ def create(event, context):
     json_data = schemas.SessionSchema().dump(session)
 
     table = boto3.resource("dynamodb").Table(os.getenv("SESSION_TABLE_NAME"))
-    item = table.put_item(
+    table.put_item(
         Item=json_data,
         ConditionExpression="attribute_not_exists(SessionToken)",
     )

@@ -5,11 +5,11 @@ EXPIRATION_DAYS = 1
 
 
 class Session:
-    def __init__(self, username, uid=None):
-        if uid is None:
-            uid = uuid4()
+    def __init__(self, username, session_token=None):
+        if session_token is None:
+            session_token = uuid4()
 
-        self.uid = uid
+        self.session_token = session_token
         self.username = username
         self.created_at = datetime.now()
         self.expires_at = self.created_at + timedelta(days=EXPIRATION_DAYS)
@@ -25,6 +25,6 @@ class Session:
 
     def __repr__(self):
         print(
-            f"Session {self.uid} for {self.username}, for {self.display_created_at} to {self.display_expires_at}"
+            f"Session {self.session_token} for {self.username}, for {self.display_created_at} to {self.display_expires_at}"
         )
-        return f"Session {self.uid} for {self.username}, for {self.display_created_at} to {self.display_expires_at}"
+        return f"Session {self.session_token} for {self.username}, for {self.display_created_at} to {self.display_expires_at}"

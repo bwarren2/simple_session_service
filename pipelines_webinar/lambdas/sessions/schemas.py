@@ -3,7 +3,7 @@ from sessions.models import Session
 
 
 class SessionSchema(Schema):
-    uid = fields.Str()
+    session_token = fields.Str()
     username = fields.Str()
     created_at = fields.DateTime(dump_only=True)
     expires_at = fields.DateTime(dump_only=True)
