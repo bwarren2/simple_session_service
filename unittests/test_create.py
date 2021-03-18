@@ -14,13 +14,7 @@ def test_create_handler_successful(mocker):
     mocker.patch("sessions.models.uuid4", lambda: "A")
     output = handlers.create(input_event, {})
     assert output == {
-        "body": {
-            "created_at": "2020-01-01T00:00:00",
-            "expires_at": "2020-01-02T00:00:00",
-            "session_token": "A",
-            "ttl": 1577923200,
-            "username": "ben",
-        },
+        "body": '{"session_token": "A", "username": "ben", "created_at": "2020-01-01T00:00:00", "expires_at": "2020-01-02T00:00:00", "ttl": 1577923200}',
         "statusCode": "201",
         "headers": {"Content-Type": "application/json"},
     }
@@ -63,20 +57,3 @@ def test_create_handler_no_body(mocker):
 # def test_no_mocks_test_create_handler_successful(mocker):
 #     input_event = {"body": '{\n "username": "ben"\n}', "isBase64Encoded": False}
 #     output = handlers.create(input_event, {})
-#     assert output == {
-#         "body": "Session A for ben, for 2020/01/01, 00:00:00 to 2020/01/02, 00:00:00",
-#         "statusCode": "201",
-#     }
-#     resource_mock.Table.assert_called_with(os.getenv("SESSION_TABLE_NAME"))
-
-#     resource_mock.Table.return_value.put_item.assert_called_with(
-#         ConditionExpression="attribute_not_exists(SessionToken)",
-#         Item={
-#             "SessionToken": "A",
-#             "Username": "ben",
-#             "CreatedAt": "2020-01-01 00:00:00",
-#             "ExpiresAt": "2020-01-02 00:00:00",
-#             "TTL": "1577923200",
-#         },
-#         ReturnValues="ALL_OLD",
-#     )

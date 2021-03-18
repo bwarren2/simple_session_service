@@ -21,19 +21,20 @@ def create(event, context):
         return {"body": "Invalid request body", "statusCode": "400"}
 
     session = schemas.SessionSchema().load(json_body)
-    json_data = schemas.SessionSchema().dump(session)
+    item_data = schemas.SessionSchema().dump(session)
+    json_string_data = schemas.SessionSchema().dumps(session)
 
     table = boto3.resource("dynamodb").Table(os.getenv("SESSION_TABLE_NAME"))
     table.put_item(
-        Item=json_data,
+        Item=item_data,
         ConditionExpression="attribute_not_exists(session_token)",
     )
 
     logger.info("Wrote the item")
-    logger.info(dict(json_data))
+    logger.info(json_string_data)
 
     return {
-        "body": dict(json_data),
+        "body": json_string_data,
         "statusCode": "201",
         "headers": {"Content-Type": "application/json"},
     }
