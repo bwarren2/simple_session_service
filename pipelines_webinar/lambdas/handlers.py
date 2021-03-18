@@ -30,7 +30,7 @@ def create(event, context):
             "TTL": str(session.ttl),
         },
         ConditionExpression="attribute_not_exists(SessionToken)",
-        ReturnValues="ALL_OLD",
+        ReturnValues="ALL_NEW",
     )
     logger.info("Got back:")
     logger.info(item)
