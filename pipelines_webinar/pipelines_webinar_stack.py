@@ -15,7 +15,7 @@ class PipelineWebinarStack(core.Stack):
             self,
             "SessionTable",
             partition_key=dynamodb.Attribute(
-                name="SessionToken", type=dynamodb.AttributeType.STRING
+                name="session_token", type=dynamodb.AttributeType.STRING
             ),
         )
 

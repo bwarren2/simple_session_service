@@ -19,22 +19,19 @@ def create(event, context):
         json_body = json.loads(body)
     except json.JSONDecodeError:
         return {"body": "Invalid request body", "statusCode": "400"}
+
     session = schemas.SessionSchema().load(json_body)
+    json_data = schemas.SessionSchema().dump(session)
+
     table = boto3.resource("dynamodb").Table(os.getenv("SESSION_TABLE_NAME"))
     item = table.put_item(
-        Item={
-            "SessionToken": str(session.uid),
-            "Username": session.username,
-            "CreatedAt": str(session.created_at),
-            "ExpiresAt": str(session.expires_at),
-            "TTL": str(session.ttl),
-        },
+        Item=json_data,
         ConditionExpression="attribute_not_exists(SessionToken)",
-        ReturnValues="ALL_NEW",
     )
-    logger.info("Got back:")
-    logger.info(item)
-    logger.info("Done")
+
+    logger.info("Wrote the item")
+    logger.info(json_data)
+
     return {"body": str(session), "statusCode": "201"}
 
 
