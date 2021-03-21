@@ -27,3 +27,5 @@ $ source .venv/bin/activate
 `export AWS_PROFILE=BenW` for the tests that actually touch AWS.
 
 Use `pytest --cov=session_tokens_app/ --cov-report xml:cov.xml tests/ -vv`
+
+Enjoy!
