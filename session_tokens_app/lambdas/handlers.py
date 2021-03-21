@@ -33,7 +33,7 @@ def create(event, context):
     json_string_data = schemas.SessionSchema().dumps(session)
 
     table = boto3.resource("dynamodb").Table(os.getenv("SESSION_TABLE_NAME"))
-    table.put_item(
+    response = table.put_item(
         Item=item_data,
         ConditionExpression="attribute_not_exists(session_token)",
     )

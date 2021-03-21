@@ -61,9 +61,9 @@ def test_create_handler_no_body(mocker):
 #     handlers.create(input_event, {})
 
 
-# def test_check(mocker):
+# def test_delete(mocker):
 #     input_event = {
 #         "pathParameters": {"item": "c9ae0f18-397e-4f71-b6e9-f93c0c83c974"},
 #         "isBase64Encoded": False,
 #     }
-#     print(handlers.retrieve(input_event, {}))
+#     print(handlers.delete(input_event, {}))
