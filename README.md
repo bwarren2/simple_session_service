@@ -60,4 +60,4 @@ Enjoy!
 
 # Testing
 
-Use `pytest --cov=pipelines_webinar/ --cov-report xml:cov.xml unittests/ -vv`
+Use `pytest --cov=session_tokens_app/ --cov-report xml:cov.xml unittests/ -vv`

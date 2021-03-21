@@ -1,6 +1,6 @@
 import os
 from collections import OrderedDict
-from pipelines_webinar.lambdas import handlers
+from session_tokens_app.lambdas import handlers
 from freezegun import freeze_time
 
 

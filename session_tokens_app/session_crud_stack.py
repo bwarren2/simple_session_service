@@ -7,7 +7,7 @@ import aws_cdk.aws_apigateway as apigw
 import aws_cdk.aws_dynamodb as dynamodb
 
 
-class PipelineWebinarStack(core.Stack):
+class SessionCrudStack(core.Stack):
     def __init__(self, scope: core.Construct, id: str, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
 

@@ -2,7 +2,7 @@
 
 from aws_cdk import core
 
-from pipelines_webinar.pipeline_stack import PipelineStack
+from session_tokens_app.pipeline_stack import PipelineStack
 
 
 app = core.App()

@@ -1,12 +1,12 @@
 from aws_cdk import core
-from pipelines_webinar.pipelines_webinar_stack import PipelineWebinarStack
+from session_tokens_app.session_crud_stack import SessionCrudStack
 
 
 def test_lambda_handler():
 
     app = core.App()
 
-    PipelineWebinarStack(app, "Stack")
+    SessionCrudStack(app, "Stack")
 
     template = app.synth().get_stack_by_name("Stack").template
     functions = [

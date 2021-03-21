@@ -6,7 +6,7 @@ import logging
 logger = logging.getLogger()
 
 here = os.path.join(
-    os.path.dirname(os.path.abspath(__file__)), "pipelines_webinar", "lambdas"
+    os.path.dirname(os.path.abspath(__file__)), "session_tokens_app", "lambdas"
 )
 sys.path.insert(0, here)
 
