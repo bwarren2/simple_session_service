@@ -1,8 +1,5 @@
-import os
 from aws_cdk import core
 from pipelines_webinar.pipelines_webinar_stack import PipelineWebinarStack
-from pipelines_webinar.lambdas import handlers
-from freezegun import freeze_time
 
 
 def test_lambda_handler():
@@ -17,8 +14,9 @@ def test_lambda_handler():
         for resource in template["Resources"].values()
         if resource["Type"] == "AWS::Lambda::Function"
     ]
-    assert len(functions) == 4
+    assert len(functions) == 5
     assert functions[0]["Properties"]["Handler"] == "handlers.hello"
     assert functions[1]["Properties"]["Handler"] == "handlers.create"
     assert functions[2]["Properties"]["Handler"] == "handlers.listing"
     assert functions[3]["Properties"]["Handler"] == "handlers.retrieve"
+    assert functions[4]["Properties"]["Handler"] == "handlers.delete"

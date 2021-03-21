@@ -65,5 +65,16 @@ def retrieve(event, context):
     }
 
 
+def delete(event, context):
+    table = boto3.resource("dynamodb").Table(os.getenv("SESSION_TABLE_NAME"))
+    table.delete_item(
+        Key={"session_token": event["pathParameters"]["item"]},
+    )
+    return {
+        "body": "",
+        "statusCode": "204",
+    }
+
+
 def hello(event, context):
     return {"body": "Hello from lambda", "statusCode": "200"}

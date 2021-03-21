@@ -69,10 +69,20 @@ class PipelineWebinarStack(core.Stack):
             code=codeAsset,
             environment={"SESSION_TABLE_NAME": table.table_name},
         )
+        delete_handler = lmb.Function(
+            self,
+            "DeleteHandler",
+            layers=[layer],
+            runtime=lmb.Runtime.PYTHON_3_7,
+            handler="handlers.delete",
+            code=codeAsset,
+            environment={"SESSION_TABLE_NAME": table.table_name},
+        )
 
         table.grant_read_data(listing_handler)
         table.grant_read_data(retrieve_handler)
         table.grant_read_write_data(create_handler)
+        table.grant_read_write_data(delete_handler)
 
         api = apigw.LambdaRestApi(
             self,
@@ -91,5 +101,6 @@ class PipelineWebinarStack(core.Stack):
         item.add_method(
             "GET", integration=apigw.LambdaIntegration(retrieve_handler)
         )  # GET /items/{item}
+        item.add_method("DELETE", integration=apigw.LambdaIntegration(delete_handler))
         self.url_output = core.CfnOutput(self, "Url", value=api.url)
         self.table_name_output = core.CfnOutput(self, "name", value=table.table_name)
